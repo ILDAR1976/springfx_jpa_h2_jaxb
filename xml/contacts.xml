@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<schedule>
+    <contact_list>
+        <id>2</id>
+        <name>First</name>
+        <contact>1</contact>
+    </contact_list>
+    <contact_list>
+        <id>3</id>
+        <name>Second</name>
+        <contact>1</contact>
+    </contact_list>
+    <contact_list>
+        <id>5</id>
+        <name>Third</name>
+        <contact>4</contact>
+    </contact_list>
+    <contacts>
+        <id>1</id>
+        <name>Ivan</name>
+        <contactList>
+            <contactList>
+                <id>2</id>
+                <name>First</name>
+                <contact>1</contact>
+            </contactList>
+            <contactList>
+                <id>3</id>
+                <name>Second</name>
+                <contact>1</contact>
+            </contactList>
+        </contactList>
+    </contacts>
+    <contacts>
+        <id>4</id>
+        <name>Robby</name>
+        <contactList>
+            <contactList>
+                <id>5</id>
+                <name>Third</name>
+                <contact>4</contact>
+            </contactList>
+        </contactList>
+    </contacts>
+</schedule>

@@ -27,8 +27,7 @@ public class Contact implements Serializable {
 	@XmlElement
 	private String name;
 	@XmlElementWrapper(name="contactList")
-   
-	private Set<ContactList> contactList = new HashSet<ContactList>();
+ 	private Set<ContactList> contactList = new HashSet<ContactList>();
 
 	public Contact() {
 	}
@@ -38,7 +37,7 @@ public class Contact implements Serializable {
 	}
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	public Long getId() {
 		return id;
 	}

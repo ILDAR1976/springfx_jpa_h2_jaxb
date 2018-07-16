@@ -27,6 +27,4 @@ public class ContactListServiceImpl implements ContactListService {
     public List<ContactList> findAll() {
         return repository.findAll();
     }
-
-	
 }

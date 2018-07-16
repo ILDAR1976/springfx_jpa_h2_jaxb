@@ -16,13 +16,11 @@ import iha.spring_data.entity.ContactList;
 import iha.spring_data.service.ContactListService;
 import iha.spring_data.service.ContactService;
 import javax.annotation.PostConstruct;
-import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
-import javax.xml.bind.PropertyException;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-
+import static iha.spring_data.Utils.Utils.*;
 
 @SuppressWarnings({ "restriction" })
 public class MainController {
@@ -41,18 +39,26 @@ public class MainController {
     @FXML private TextField txtPhone;
     @FXML private TextField txtEmail;
 
-    // Variables
     private ObservableList<ContactList> data;
-
+    
     @FXML
     public void initialize() {
     }
 
     @SuppressWarnings("unchecked")
     @PostConstruct
-    public void init() {
+    public void init() throws JAXBException {
     	
-    	createTestData();
+    	switch (1) {
+		case 1:
+			getTestData();
+			break;
+
+		default:
+			createTestData();
+			break;
+		}
+    	
     	
         List<ContactList> contactLists = contactListService.findAll();
         data = FXCollections.observableArrayList(contactLists);
@@ -116,22 +122,34 @@ public class MainController {
 		wrapper.setContactList(shedule);
 		wrapper.setContacts(contacts);
 		
-		saveXml(wrapper);
-		
-    }
-    
-    private  void saveXml(Object obj) {
 		try {
-			JAXBContext jc = JAXBContext.newInstance(obj.getClass());
-
-			Marshaller marshaller = jc.createMarshaller();
-			marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-			marshaller.marshal(obj, System.out);
-			
-		} catch (PropertyException e) {
-			e.printStackTrace();
+			File file = getContactsFile();
+			saveObjects(file, wrapper);
 		} catch (JAXBException e) {
 			e.printStackTrace();
 		}
+		
+		logger.info("Data saved");
+    }
+    
+    private  void getTestData() throws JAXBException {
+		File file = getContactsFile();
+		ContactListWrapper wrapper = new ContactListWrapper();
+		wrapper = loadObjects(file, wrapper);
+		
+		wrapper.getContactList().stream().forEach(e ->{
+			
+			Contact cn = e.getContact();
+		    cn.getContactList().clear();
+		    ContactList cl = e;
+		    cl.setContact(cn);
+		    contactService.save(cn);
+			contactListService.save(cl);
+			
+		});
+		
+		
+		logger.info("Data loaded");
+
     }
 }
