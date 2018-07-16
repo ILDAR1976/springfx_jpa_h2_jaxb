@@ -54,7 +54,7 @@ public class MainController {
 			getTestData();
 			break;
 
-		default:
+		case 2:
 			createTestData();
 			break;
 		}
@@ -138,7 +138,6 @@ public class MainController {
 		wrapper = loadObjects(file, wrapper);
 		
 		wrapper.getContactList().stream().forEach(e ->{
-			
 			Contact cn = e.getContact();
 		    cn.getContactList().clear();
 		    ContactList cl = e;
